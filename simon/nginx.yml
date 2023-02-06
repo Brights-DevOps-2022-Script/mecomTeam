@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: nginx
-          image: devops2022.azurecr.io/simonnginx:c091fbd8cf319bb6fddc81719bd7bfb5fe1fac94
+          image: devops2022.azurecr.io/simonnginx:6a00c1bf5cdf3a9fa32d4c1556a22a31f8003cee
           ports:
             - containerPort: 80
           resources:
