@@ -5,7 +5,6 @@ metadata:
   labels:
     app: nginx          # used by the service selector
 spec:
-  replicas: 5
   selector:
     matchLabels:
       app: nginx
@@ -28,7 +27,6 @@ spec:
   selector: 
     app: nginx
   ports:
-    - protocol: TCP
       port: 80
       targetPort: 80
   type: LoadBalancer
