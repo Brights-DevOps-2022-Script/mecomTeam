@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+
+  <title>Simon</title>
+  <meta name="description" content="Site description">
+
+  <!-- Recommended minimum -->
+  <meta property="og:title" content="Site title">
+  <meta property="og:description" content="Site description">
+  <meta property="og:image" content="img/site-image.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <!-- You could also inline the stylesheet -->
+  <link rel="stylesheet" href="index_files/style.css">
+
+</head>
+
+<body>
+
+  <header>
+    <h1>
+      <a href="#home">Simon</a>
+    </h1>
+    <nav>
+      <a href="#code">CodeSnippets</a>
+      <a href="https://github.com/simonoscr">GitHub</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <main>
+
+    <section id="home">
+
+      <h2>What?</h2>
+      <p>This website runs on a <abbr
+          title="An Azure Kubernetes Service (AKS) cluster is a managed Kubernetes environment provided by Microsoft Azure for deploying, managing, and scaling containerized applications.">Azure
+          Kubernetes Cluster (AKS)</abbr> with
+        <abbr
+          title="Argo CD is a continuous delivery tool for Kubernetes applications that provides declarative GitOps management of applications in multiple environments.">ArgoCD</abbr>.
+        It was build and deployed using a <abbr
+          title="Jenkins Pipeline is a suite of plugins that allows for implementing and integrating continuous delivery pipelines into Jenkins, helping automate the process of building, testing, and deploying software.">Jenkins
+          Pipeline</abbr>.
+      </p>
+      <h2>Why?</h2>
+      This website is a showcase for a successful deploy. It is databaseless, javascriptless and completely unnecessary
+      to deploy on a Kubernetes Cluster. I can edit and push changes or I just could edit and upload it somewhere
+      else like a normal person, if this would be a serious project.
+      </p>
+
+      <h2>How?</h2>
+      I really don't know. Just copy pasta some numbers and letters from the <a href="#code">code snippets</a> section.
+      <ol>
+
+        <style>
+          textarea+label {
+            position: absolute;
+            text-indent: -99999em;
+          }
+        </style>
+
+    </section>
+
+    <section id="code">
+
+      <li>Build and push a Docker image to a Azure Container Registry (ACR):
+        <textarea id="addsection" readonly rows="10">
+stage('BUILD') {
+  steps {
+    withDockerRegistry(credentialsId: 'credentials', url: 'acr-url') {
+      sh "docker build -t registry.io/image:tag ."
+      sh "docker push registry.io/image:tag"
+      sh "docker rmi registry.io/image:tag"
+    }
+  }
+}</textarea>
+      <li>Update deployment file with new image:tag and git push:
+        <textarea id="addsection" readonly rows="12">
+stage('DEPLOY') {
+  steps {
+    checkout([$class: 'GitSCM', branches: [[name: '*/main']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'id', url: 'repo-url']]])
+    withCredentials([usernamePassword(credentialsId: 'id', passwordVariable: 'GIT_PWD', usernameVariable: 'GIT_USR')]) {
+      sh "sed -i 's|image:.*|image: registry.io/image:tag|' deployment.yml"
+      sh "git add deployment.yml"
+      sh "git commit -m 'update image'"
+      sh "git push https://${GIT_USR}:${GIT_PWD}@github.com/repo.git HEAD:main"
+    }
+  }
+}</textarea>
+      <li>Skip a git commit with [ci skip] or [skip ci] in the commit message:
+        <textarea id="addsection" readonly rows="10">
+stage('CHECK SKIP CI') {
+  steps {
+    script {
+      if (sh(script: "git log -1 --pretty=%B | fgrep -ie '[skip ci]' -e '[ci skip]'", returnStatus: true) == 0) {
+      currentBuild.result = 'ABORTED'
+      error 'Aborting because commit message contains [skip ci]'
+    }
+  }
+}</textarea>
+      <li>Apply a deployment and service file with kubectl to a k8s cluster:
+        <textarea id="addsection" readonly rows="12">
+steps {
+  withKubeConfig([credentialsId: 'credentials']) {
+    sh 'kubectl apply -f deployment.yml'
+    sh 'kubectl set image deployment/deployment app=registry.io/image:tag'
+  script {
+    def output = sh(script: 'kubectl get svc -n simon-jenkins', returnStdout: true)
+    def externalIp = output.split("\n")[1].split()[3]
+    echo "External IP: http://${externalIp}"
+    }
+  }
+}</textarea>
+
+        <figure>
+          <p><a href="#home">← back</a></p>
+        </figure>
+
+    </section>
+
+    <section id="contact"> <!-- CONTACT PAGE -->
+
+      <p>
+      </p>
+      <p><a href="#home">← back</a></p>
+
+    </section>
+
+  </main>
+
+</body>
+
+</html>
