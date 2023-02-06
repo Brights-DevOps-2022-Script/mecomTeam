@@ -22,7 +22,7 @@ pipeline {
                 }
             }
         }
-        stage('DEPLOY mecomTeam') {
+        stage('DEPLOY') {
             steps {
                 checkout([$class: 'GitSCM', branches: [[name: '*/simon-main']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: '2eb747c4-f19f-4601-ab83-359462e62482',  url: 'https://github.com/Brights-DevOps-2022-Script/mecomTeam.git']]])
                 withCredentials([usernamePassword(credentialsId: '2eb747c4-f19f-4601-ab83-359462e62482', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
