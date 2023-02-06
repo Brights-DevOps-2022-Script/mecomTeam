@@ -4,4 +4,4 @@ resources:
   - nginx.yml
 images:
   - name: SIMON-NGINX
-    newName: devops2022.azurecr.io/simonnginx:ea2b2aa21accb62d721d7038cc4e8abf567287c9
+    newName: devops2022.azurecr.io/simonnginx:b13722e3291e8252b0967a606ee951cc8bc1638a
