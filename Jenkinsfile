@@ -4,7 +4,7 @@ pipeline {
         stage('BUILD') {
             steps {
                 withDockerRegistry(credentialsId: 'acr_creds', url: 'https://devops2022.azurecr.io/v2/') {
-                sh "docker build -t devops2022.azurecr.io/simonnginx:$GIT_COMMIT ./app"
+                sh "docker build -t devops2022.azurecr.io/simonnginx:$GIT_COMMIT ./simon/app"
                 sh "docker push devops2022.azurecr.io/simonnginx:$GIT_COMMIT"
                 sh "docker rmi devops2022.azurecr.io/simonnginx:$GIT_COMMIT"
                 }
