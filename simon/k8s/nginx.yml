@@ -34,3 +34,18 @@ spec:
     - port: 80
       targetPort: 80
   type: LoadBalancer
+---
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: simon-ingress
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: devops2022.de
+      http:
+        paths:
+          - path: /simon
+            backend:
+              serviceName: simon-service
+              servicePort: 80
