@@ -1,0 +1,11 @@
+79 lines (389 sloc)  7.44 KB
+
+* { margin: 0; padding: 0; box-sizing: border-box;
+  
+  /* Color scheme */
+  
+  --textcolor: #121212;
+  --bgcolor: #fff;
+  --highlight: #2749c9;
+
+}
