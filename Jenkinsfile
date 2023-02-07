@@ -4,20 +4,19 @@ pipeline {
         stage('BUILD') {
             steps {
                 withDockerRegistry(credentialsId: 'acr_creds', url: 'https://devops2022.azurecr.io/v2/') {
-                sh "docker build -t devops2022.azurecr.io/simonnginx:$GIT_COMMIT ./simon/app"
-                sh "docker push devops2022.azurecr.io/simonnginx:$GIT_COMMIT"
-                sh "docker rmi devops2022.azurecr.io/simonnginx:$GIT_COMMIT"
+                sh "docker build -t devops2022.azurecr.io/simonnginx:${GIT_COMMIT} ./simon/app"
+                sh "docker push devops2022.azurecr.io/simonnginx:${GIT_COMMIT}"
+                sh "docker rmi devops2022.azurecr.io/simonnginx:${GIT_COMMIT}"
                 }
             }
         }
         stage('TEST') {
             steps {
                  script {
-                    def imageTag = "simonnginx:$GIT_COMMIT"
                     def acrLoginServer = "devops2022.azurecr.io"
-                    def imageExists = sh(script: "set +x curl -fL ${acrLoginServer}/v2/manifests/${imageTag}", returnStatus: true) == 0
+                    def imageExists = sh(script: "set +x curl -fL devops2022.azurecr.io/v2/manifests/simonnginx:${GIT_COMMIT}", returnStatus: true) == 0
                     if (!imageExists) {
-                        error("The image ${imageTag} was not found in the registry ${acrLoginServer}")
+                        error("The image simonnginx:${GIT_COMMIT} was not found in the registry devops2022.azurecr.io")
                     }
                 }
             }
