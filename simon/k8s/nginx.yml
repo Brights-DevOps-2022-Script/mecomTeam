@@ -42,7 +42,7 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-    - host: devops2022.de
+    - host: www.devops2022.de
       http:
         paths:
           - path: /simon
