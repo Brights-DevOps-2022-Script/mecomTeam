@@ -1,7 +1,0 @@
-apiVersion: kustomize.config.k8s.io/v1beta1
-kind: Kustomization
-resources:
-  - nginx.yml
-images:
-  - name: SIMON-NGINX
-    newName: devops2022.azurecr.io/simonnginx:a6336d2b170ec38e673737abe4d1e1b903e8ce52
