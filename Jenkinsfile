@@ -24,12 +24,12 @@ pipeline {
 
         stage('Deploy') {     //so dass nachher der immer neue Imagename auf
             steps {
-                checkout([$class: 'GitSCM', branches: [[name: '*/main']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: '2eb747c4-f19f-4601-ab83-359462e62482',  url: 'https://github.com/Brights-DevOps-2022-Script/mecomTeam.git']]])
+                checkout([$class: 'GitSCM', branches: [[name: '*/ulrike-main']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: '2eb747c4-f19f-4601-ab83-359462e62482',  url: 'https://github.com/Brights-DevOps-2022-Script/mecomTeam.git']]])
                 withCredentials([usernamePassword(credentialsId: '2eb747c4-f19f-4601-ab83-359462e62482', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
-                sh 'sed -i "s|image:.*|image: devops2022.azurecr.io/ullis-image:$GIT_COMMIT|" Ulrike/nginx-deployment.yaml'
-                sh "git add Ulrike/nginx-deployment.yaml"
+                sh 'sed -i "s|image:.*|image: devops2022.azurecr.io/ullis-image:$GIT_COMMIT|" nginx-deployment.yaml'
+                sh "git add nginx-deployment.yaml"
                 sh "git commit -m 'update image'"
-                sh "git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/Brights-DevOps-2022-Script/mecomTeam.git HEAD:main"
+                sh "git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/Brights-DevOps-2022-Script/mecomTeam.git HEAD:ulrike-main"
                 }                            
                 // kustomize.yaml ... kustomize edit set image dev....:$hsh
             }
