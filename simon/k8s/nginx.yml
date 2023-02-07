@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: simon-nginx-deployment
+  name: simon-deployment
   labels:
     app: nginx
 spec:
@@ -26,11 +26,26 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: simon-nginx-service
+  name: simon-service
 spec:
   selector:
     app: nginx
   ports:
     - port: 80
       targetPort: 80
-  type: LoadBalancer
+  type: ClusterIP
+---
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: simon-ingress
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: devops2022.de
+      http:
+        paths:
+          - path: /simon
+            backend:
+              serviceName: simon-service
+              servicePort: 80
