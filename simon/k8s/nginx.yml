@@ -33,4 +33,29 @@ spec:
   ports:
     - port: 80
       targetPort: 80
-  type: LoadBalancer
+      protocol: TCP
+  type: ClusterIP
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: nginx
+  annotations:
+    #cert-manager.io/cluster-issuer: certmanager_name
+    kubernetes.io/ingress.class: nginx
+spec:
+  #tls:
+  #- hosts:
+  #  - devops2022.de
+  #  secretName: secret
+  rules:
+    - host: devops2022.de
+      http:
+        paths:
+          - path: /simon
+            pathType: Prefix
+            backend:
+              service:
+                name: simon-service
+                port:
+                  number: 80
