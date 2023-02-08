@@ -6,7 +6,7 @@ pipeline {
                 withDockerRegistry(credentialsId: 'acr_creds', url: 'https://devops2022.azurecr.io/v2/') {
                 sh "docker build -t devops2022.azurecr.io/romanginx:$GIT_COMMIT ./roman/app"
                 sh "docker push devops2022.azurecr.io/romanginx:$GIT_COMMIT"
-                //sh "docker rmi devops2022.azurecr.io/romanginx:$GIT_COMMIT"
+                sh "docker rmi devops2022.azurecr.io/romanginx:$GIT_COMMIT"
                 }
             }
         }
