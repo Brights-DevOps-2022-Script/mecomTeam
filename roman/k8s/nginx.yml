@@ -60,4 +60,5 @@ spec:
               service:
                 name: roman-nginx-service
                 port:
-                  number: 80
+                  #number: 80
+                  name: http
