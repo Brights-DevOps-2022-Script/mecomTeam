@@ -16,7 +16,7 @@ spec:
     spec:                 # blueprint for a pod
       containers:
       - name: nginx
-        image: devops2022.azurecr.io/ullis-image:723203bea8b6c1ef82f26084c1f4b6035016178f
+        image: devops2022.azurecr.io/ullis-image:101a22afb24189e6e425eef3aeddf85387a012f1
         ports:
         - containerPort: 80   # should match targetPort in Service
         resources:
