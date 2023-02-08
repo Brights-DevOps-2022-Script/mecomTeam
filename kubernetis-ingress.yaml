@@ -16,7 +16,7 @@ spec:
   - host: devops2022.de                       # host must be a valid domain adress
     http:                    
       paths:
-      - path: /ulrike(/|$)(.*)                       # wird redirected auf backend: service
+      - path: /ulrike                      # wird redirected auf backend: service
         pathType: Prefix
         backend:
           service:
