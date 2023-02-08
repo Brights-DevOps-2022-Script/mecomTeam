@@ -27,11 +27,35 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: simon-nginx-service
+  name: roman-nginx-service
 spec:
   selector:
     app: nginx
   ports:
     - port: 80
       targetPort: 80
-  type: LoadBalancer
+  type: ClusterIP
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: roman-ingress
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+    #cert-manager.io/cluster-issuer: certmanager_name
+spec:
+  #tls:
+  #- hosts:
+  #  - devops2022.de
+  #  secretName: secret
+  rules:
+    - host: devops2022.de
+      http:
+        paths:
+          - path: /roman
+            pathType: Prefix
+            backend:
+              service:
+                name: roman-service
+                port:
+                  number: 80
