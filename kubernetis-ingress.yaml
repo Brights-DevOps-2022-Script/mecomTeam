@@ -5,8 +5,6 @@ metadata:
   name: ullis-ingress
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /
-  labels:
-    app: nginx
 spec:
   rules:
   - host: devops2022.de                       # host must be a valid domain adress
