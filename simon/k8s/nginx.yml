@@ -43,7 +43,7 @@ metadata:
   annotations:
     kubernetes.io/ingress.class: "nginx"
     nginx.ingress.kubernetes.io/ssl-redirect: "false"
-    nginx.ingress.kubernetes.io/rewrite-target: /
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
     #cert-manager.io/cluster-issuer: "letsencrypt-prod"
 spec:
   ingressClassName: nginx
@@ -55,7 +55,7 @@ spec:
     - host: devops2022.de
       http:
         paths:
-          - path: /simon(/|$)
+          - path: /simon
             pathType: Prefix
             backend:
               service:
