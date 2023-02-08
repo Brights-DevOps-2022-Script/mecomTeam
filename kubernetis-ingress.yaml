@@ -6,17 +6,16 @@ metadata:
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /
   labels:
-    app: nginx 
-  namespace: ullisspace
+    app: nginx
 spec:
-  rules:                      # host must be a valid domain adress
-  - http: devops2022.de                    # host: fällt weg, weil von Johannes gesetzt, denke ich 
-    paths:
-     - path: /ulrike                       # wird redirected auf backend: service
-    pathType: Prefix
-    backend:
-    service:
-      name: service     # must match service name
-      port:
-        number: 80         # muss port in service matchen
-S
+  rules:
+  - host: devops2022.de                       # host must be a valid domain adress
+    http:                    
+      paths:
+      - path: /ulrike                       # wird redirected auf backend: service
+        pathType: Prefix
+        backend:
+          service:
+            name: ullis-ingess-clusterip     # must match service name
+            port:
+              number: 80         # muss port in service matchen
