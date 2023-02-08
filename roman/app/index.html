@@ -1,10 +1,42 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="UTF-8">
-    <title>Page Title</title>
-  </head>
-  <body>
-    <h1 style="text-align:center;">Centered Page Title made by Chat GPT. Best tool ever</h1>
-  </body>
+<html lang="de" dir="ltr">
+    <head>
+        <meta charset="utf-8">
+        <title>DevOps 2022 Partytime!</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <div class="cursor"></div>
+        <section class="main">
+            <h1>DevOps 2022 Partytime!</h1>
+        </section>
+
+        <script type="text/javascript">
+            const cursor = document.querySelector(".cursor");
+            var timeout;
+
+            document.addEventListener("mousemove", (e) =>{
+                let x = e.pageX;
+                let y = e.pageY;
+
+                cursor.style.top = y + 'px';
+                cursor.style.left = x+ 'px';
+                cursor.style.display = 'block';
+                
+                function mouseStopped() {
+                    cursor.style.display = 'none';
+                }
+                
+                clearTimeout(timeout);
+                timeout = setTimeout(mouseStopped, 1000);
+            });
+            
+            document.addEventListener("mouseout", () => {
+                cursor.style.display = 'none';
+
+            });
+
+        </script>
+
+    </body>
 </html>
