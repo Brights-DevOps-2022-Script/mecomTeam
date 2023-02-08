@@ -42,6 +42,7 @@ metadata:
   name: roman-ingress
   annotations:
     kubernetes.io/ingress.class: "nginx"
+    kubernetes.io/ingress.allow-http: "true"
     #cert-manager.io/cluster-issuer: certmanager_name
 spec:
   #tls:
