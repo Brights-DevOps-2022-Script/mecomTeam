@@ -58,6 +58,6 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: roman-service
+                name: roman-nginx-service
                 port:
                   number: 80
