@@ -1,0 +1,22 @@
+# hello-kubernetes-ingress.yaml
+apiVersion: networking.k8s.io/v1
+kind: Ingress                   # instead of connecting to the node-ip-adress, the ingress provides a https and a hostname to sccess the app-pod.
+metadata:
+  name: ullis-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+  labels:
+    app: nginx 
+  namespace: ullisspace
+spec:
+  rules:                      # host must be a valid domain adress
+  - http: devops2022.de                    # host: fällt weg, weil von Johannes gesetzt, denke ich 
+    paths:
+     - path: /ulrike                       # wird redirected auf backend: service
+    pathType: Prefix
+    backend:
+    service:
+      name: service     # must match service name
+      port:
+        number: 80         # muss port in service matchen
+S

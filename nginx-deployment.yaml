@@ -27,11 +27,12 @@ spec:
 apiVersion: v1
 kind: Service
 metadata: 
-  name: ullis-argocd-load-balancer
+  name: ullis-ingess-clusterip
 spec: 
+  # tls: ... da kommt das Zertifikat rein später
   selector: 
     app: nginx
   ports:
     - port: 80
       targetPort: 80
-  type: LoadBalancer
+  type: clusterip
