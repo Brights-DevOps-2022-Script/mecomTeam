@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: nginx
-          image: devops2022.azurecr.io/simonnginx:964c26d8610d55b53916723e87ed94e5174d804a
+          image: devops2022.azurecr.io/simonnginx:ff72a3eb114edf4a73784d8b8815c44d853f20c6
           ports:
             - containerPort: 80
           resources:
@@ -57,7 +57,7 @@ spec:
     - host: devops2022.de
       http:
         paths:
-          - path: "/simon(.*)"
+          - path: "/simon/(/|$)(.*)"
             pathType: Prefix
             backend:
               service:
