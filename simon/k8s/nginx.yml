@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: nginx
-          image: devops2022.azurecr.io/simonnginx:253b465b67bbdcbb6dc3bd852ea7a6b224240eaa
+          image: devops2022.azurecr.io/simonnginx:351785ae16739ac114e5c673d604c3d613d46162
           ports:
             - containerPort: 80
           resources:
@@ -43,6 +43,7 @@ metadata:
   annotations:
     kubernetes.io/ingress.class: "nginx"
     nginx.ingress.kubernetes.io/ssl-redirect: "false"
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
     #cert-manager.io/cluster-issuer: "letsencrypt-prod"
 spec:
   ingressClassName: nginx
