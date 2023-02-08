@@ -41,7 +41,7 @@ kind: Ingress
 metadata:
   name: simon-ingress
   annotations:
-    kubernetes.io/ingress.class: nginx
+    kubernetes.io/ingress.class: "nginx"
     #cert-manager.io/cluster-issuer: certmanager_name
 spec:
   #tls:
