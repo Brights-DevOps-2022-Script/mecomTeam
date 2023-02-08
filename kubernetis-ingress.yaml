@@ -7,6 +7,10 @@ metadata:
     nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
   ingressClassName: nginx
+    tls:
+  - hosts:
+    - devops2022.de
+    secretName: letsencrypt-staging
   rules:
   - host: devops2022.de                       # host must be a valid domain adress
     http:                    
@@ -21,3 +25,5 @@ spec:
 
 
 
+# name: 
+# hirschmugl@gmx.de
