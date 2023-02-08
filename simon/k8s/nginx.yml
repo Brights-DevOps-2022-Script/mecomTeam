@@ -57,7 +57,7 @@ spec:
     - host: devops2022.de
       http:
         paths:
-          - path: "/simon(\/|$)(.*)"
+          - path: "/simon(.*)"
             pathType: Prefix
             backend:
               service:
