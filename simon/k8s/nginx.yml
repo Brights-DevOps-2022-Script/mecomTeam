@@ -46,13 +46,13 @@ metadata:
     nginx.ingress.kubernetes.io/rewrite-target: /$2
     nginx.ingress.kubernetes.io/configuration-snippet: |
       rewrite ^(/simon)$ $1/ redirect;
-    #cert-manager.io/cluster-issuer: "letsencrypt-prod"
+    cert-manager.io/cluster-issuer: "letsencrypt-staging"
 spec:
   ingressClassName: nginx
-  #tls:
-  #- hosts:
-  #  - devops2022.de
-  #  secretName: secret
+  tls:
+    - hosts:
+        - devops2022.de
+      secretName: simon-tls-secret
   rules:
     - host: devops2022.de
       http:
